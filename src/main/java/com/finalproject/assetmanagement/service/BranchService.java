@@ -5,9 +5,9 @@ import com.finalproject.assetmanagement.entity.Branch;
 import java.util.List;
 
 public interface BranchService {
-    Branch create(Branch store);
-    Branch getById(String id);
-    List<Branch> getAll();
-    Branch update(Branch store);
-    void deleteById(String id);
+    Branch createBranch(Branch store);
+    Branch getBranchById(String id);
+    List<Branch> getAllBranch();
+    Branch updateBranch(Branch store);
+    void deleteBranchById(String id);
 }

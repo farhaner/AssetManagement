@@ -16,26 +16,26 @@ public class BranchController {
 
     @PostMapping
     public Branch createNewBranch(@RequestBody Branch branch){
-        return branchService.create(branch);
+        return branchService.createBranch(branch);
     }
 
     @GetMapping(value = "/{id}")
     public Branch getBranchById(@PathVariable String id){
-        return branchService.getById(id);
+        return branchService.getBranchById(id);
     }
 
     @GetMapping
     public List<Branch> getAllBranch(){
-        return branchService.getAll();
+        return branchService.getAllBranch();
     }
 
     @PutMapping
     public Branch updateBranch(@RequestBody Branch branch){
-        return branchService.update(branch);
+        return branchService.updateBranch(branch);
     }
 
     @DeleteMapping(value = "/{id}")
     public void deleteStore(@PathVariable String id){
-        branchService.deleteById(id);
+        branchService.deleteBranchById(id);
     }
 }

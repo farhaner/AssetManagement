@@ -13,31 +13,31 @@ public class BranchServiceImplementation implements BranchService {
 
     private final BranchRepository branchRepository;
     @Override
-    public Branch create(Branch store) {
+    public Branch createBranch(Branch store) {
         return branchRepository.save(store);
     }
 
     @Override
-    public Branch getById(String id) {
+    public Branch getBranchById(String id) {
         return branchRepository.findById(id).get();
     }
 
     @Override
-    public List<Branch> getAll() {
+    public List<Branch> getAllBranch() {
         return branchRepository.findAll();
     }
 
     @Override
-    public Branch update(Branch store) {
-        Branch currentBranch = getById(store.getId());
+    public Branch updateBranch(Branch branch) {
+        Branch currentBranch = getBranchById(branch.getId());
         if (currentBranch != null){
-            return branchRepository.save(store);
+            return branchRepository.save(branch);
         }
         return null;
     }
 
     @Override
-    public void deleteById(String id) {
+    public void deleteBranchById(String id) {
         branchRepository.deleteById(id);
     }
 }

@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Data
+@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "assets")
@@ -29,7 +30,7 @@ public class Asset {
     @Column(name = "description" , nullable = false)
     private String description;
 
-//    @ManyToOne
-//    @Column(name = "branch_id")
-//    private Branch branchId;
+    @ManyToOne
+    @Column(name = "branch_id")
+    private Branch branchId;
 }

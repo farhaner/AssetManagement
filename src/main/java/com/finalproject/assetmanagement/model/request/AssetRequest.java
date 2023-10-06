@@ -3,22 +3,21 @@ package com.finalproject.assetmanagement.model.request;
 import com.finalproject.assetmanagement.entity.Branch;
 import lombok.*;
 
+import javax.persistence.Column;
+
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class BranchRequest {
+public class AssetRequest {
 
-    private String id;
+    private String assetCode;
 
-    private String branchCode;
+    private String name;
 
-    private String branchName;
+    private String description;
 
-    private String address;
-
-    private String mobilePhone;
-
+    private String branchId;
 
 }

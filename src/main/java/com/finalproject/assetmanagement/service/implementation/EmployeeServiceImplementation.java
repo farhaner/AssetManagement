@@ -1,12 +1,9 @@
 package com.finalproject.assetmanagement.service.implementation;
 
-import com.finalproject.assetmanagement.entity.Branch;
 import com.finalproject.assetmanagement.entity.Employee;
 import com.finalproject.assetmanagement.model.request.EmployeeRequest;
 import com.finalproject.assetmanagement.model.response.EmployeeResponse;
-import com.finalproject.assetmanagement.repository.BranchRepository;
 import com.finalproject.assetmanagement.repository.EmployeeRepository;
-import com.finalproject.assetmanagement.service.BranchService;
 import com.finalproject.assetmanagement.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,7 +34,7 @@ public class EmployeeServiceImplementation implements EmployeeService {
 
     @Override
     public Employee update(Employee employee) {
-        Employee currentEmployee = getEmployeeById(employee.getId());
+        Employee currentEmployee = getById(employee.getId());
         if (currentEmployee != null) {
             return employeeRepository.save(employee);
         }

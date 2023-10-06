@@ -31,7 +31,7 @@ public class Employee {
     @Column(name = "mobilePhone" , nullable = false)
     private String mobilePhone;
 
-//    @ManyToOne
-//    @Column(name = "asset_id")
-//    private Asset assetId;
+    @ManyToOne
+    @Column(name = "asset_id")
+    private Asset assetId;
 }

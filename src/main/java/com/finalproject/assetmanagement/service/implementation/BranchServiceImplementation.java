@@ -13,8 +13,8 @@ public class BranchServiceImplementation implements BranchService {
 
     private final BranchRepository branchRepository;
     @Override
-    public Branch createBranch(Branch store) {
-        return branchRepository.save(store);
+    public Branch createBranch(Branch branch) {
+        return branchRepository.save(branch);
     }
 
     @Override

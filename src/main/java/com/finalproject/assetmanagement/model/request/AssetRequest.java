@@ -1,9 +1,6 @@
 package com.finalproject.assetmanagement.model.request;
 
-import com.finalproject.assetmanagement.entity.Branch;
 import lombok.*;
-
-import javax.persistence.Column;
 
 @Setter
 @Getter

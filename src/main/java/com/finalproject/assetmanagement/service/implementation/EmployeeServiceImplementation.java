@@ -1,9 +1,15 @@
 package com.finalproject.assetmanagement.service.implementation;
 
+import com.finalproject.assetmanagement.entity.Asset;
+import com.finalproject.assetmanagement.entity.Branch;
 import com.finalproject.assetmanagement.entity.Employee;
 import com.finalproject.assetmanagement.model.request.EmployeeRequest;
+import com.finalproject.assetmanagement.model.response.AssetResponse;
+import com.finalproject.assetmanagement.model.response.BranchResponse;
 import com.finalproject.assetmanagement.model.response.EmployeeResponse;
 import com.finalproject.assetmanagement.repository.EmployeeRepository;
+import com.finalproject.assetmanagement.service.AssetService;
+import com.finalproject.assetmanagement.service.BranchService;
 import com.finalproject.assetmanagement.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +21,8 @@ import java.util.List;
 public class EmployeeServiceImplementation implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final BranchService branchService;
+    private final AssetService assetService;
 
     // CRUD tanpa relasi
     @Override
@@ -50,16 +58,28 @@ public class EmployeeServiceImplementation implements EmployeeService {
 
     @Override
     public EmployeeResponse createNewEmployee(EmployeeRequest request) {
+        Branch branch = branchService.getBranchById(request.getBranchId());
+        Asset asset = assetService.getById(request.getAssetId());
+
+        Employee employee = Employee.builder()
+                .username(request.getUsername())
+                .password(request.getPassword())
+                .email(request.getEmail())
+                .mobilePhone(request.getMobilePhone())
+                .assetId(asset)
+                .build();
+        employeeRepository.saveAndFlush(employee);
+
+        return employeeResponse(employee, branch, asset);
+    }
+
+    @Override
+    public EmployeeResponse getEmployeeById(String id) {
         return null;
     }
 
     @Override
-    public EmployeeResponse getEmployeeById(EmployeeRequest request) {
-        return null;
-    }
-
-    @Override
-    public EmployeeResponse getAllEmployee(EmployeeRequest request) {
+    public List<EmployeeResponse> getAllEmployee() {
         return null;
     }
 
@@ -69,7 +89,28 @@ public class EmployeeServiceImplementation implements EmployeeService {
     }
 
     @Override
-    public EmployeeResponse deleteEmployee(EmployeeRequest request) {
+    public EmployeeResponse deleteEmployee(String request) {
         return null;
+    }
+    private static EmployeeResponse employeeResponse(Employee employee, Branch branch, Asset asset) {
+        return EmployeeResponse.builder()
+                .id(employee.getId())
+                .username(employee.getUsername())
+                .password(employee.getPassword())
+                .email(employee.getEmail())
+                .mobilePhone(employee.getMobilePhone())
+                .asset(AssetResponse.builder()
+                    .id(asset.getId())
+                    .assetCode(asset.getAssetCode())
+                    .name(asset.getName())
+                    .description(asset.getDescription())
+                    .branch(BranchResponse.builder()
+                            .id(branch.getId())
+                            .branchName(branch.getBranchName())
+                            .mobilePhone(branch.getMobilePhone())
+                            .address(branch.getAddress())
+                            .build())
+                    .build())
+                .build();
     }
 }

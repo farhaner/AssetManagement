@@ -52,27 +52,9 @@ public class AssetServiceImplementation implements AssetService {
     }
 
 
-
-
-//    private static ProductResponse toProductResponse(Store store, Product product, ProductPrice productPrice) {
-//        return ProductResponse.builder()
-//                .productId(product.getId())
-//                .productName(product.getName())
-//                .description(product.getDescription())
-//                .price(productPrice.getPrice())
-//                .stock(productPrice.getStock())
-//                .store(StoreResponse.builder()
-//                        .id(store.getId())
-//                        .name(store.getName())
-//                        .address(store.getAddress())
-//                        .build())
-//                .build();
-//    }
-
-
     //CRUD dengan relasi
 
-    @Transactional
+    @Transactional(rollbackOn = Exception.class)
     @Override
     public AssetResponse createNewAsset(AssetRequest request) {
 
@@ -85,8 +67,38 @@ public class AssetServiceImplementation implements AssetService {
                     .build();
             assetRepository.saveAndFlush(asset);
 
-//            return toProductResponse(store, product, productPrice);
-        return  AssetResponse.builder()
+        return AssetsResponse(branch, asset);
+    }
+
+
+
+    @Transactional(rollbackOn = Exception.class)
+    @Override
+    public AssetResponse getAssetById(AssetRequest request) {
+
+        return null;
+    }
+
+    @Transactional(rollbackOn = Exception.class)
+    @Override
+    public AssetResponse getAllAsset(AssetRequest request) {
+        return null;
+    }
+
+    @Transactional(rollbackOn = Exception.class)
+    @Override
+    public AssetResponse updateAsset(AssetRequest request) {
+        return null;
+    }
+
+    @Transactional(rollbackOn = Exception.class)
+    @Override
+    public AssetResponse deleteAsset(AssetRequest request) {
+        return null;
+    }
+
+    private static AssetResponse AssetsResponse(Branch branch, Asset asset) {
+        return AssetResponse.builder()
                 .id(asset.getId())
                 .assetCode(asset.getAssetCode())
                 .name(asset.getName())
@@ -98,25 +110,5 @@ public class AssetServiceImplementation implements AssetService {
                         .address(branch.getAddress())
                         .build())
                 .build();
-    }
-
-    @Override
-    public AssetResponse getAssetById(AssetRequest request) {
-        return null;
-    }
-
-    @Override
-    public AssetResponse getAllAsset(AssetRequest request) {
-        return null;
-    }
-
-    @Override
-    public AssetResponse updateAsset(AssetRequest request) {
-        return null;
-    }
-
-    @Override
-    public AssetResponse deleteAsset(AssetRequest request) {
-        return null;
     }
 }

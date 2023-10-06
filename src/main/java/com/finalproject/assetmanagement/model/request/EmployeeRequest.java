@@ -19,4 +19,7 @@ public class EmployeeRequest {
 
     private String mobilePhone;
 
+    private String assetId;
+
+    private String branchId;
 }

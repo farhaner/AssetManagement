@@ -35,7 +35,7 @@ public class BranchController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public void deleteStore(@PathVariable String id){
+    public void deleteBranch(@PathVariable String id){
         branchService.deleteBranchById(id);
     }
 }

@@ -18,9 +18,9 @@ public interface EmployeeService {
 
 
     EmployeeResponse createNewEmployee(EmployeeRequest request);
-    EmployeeResponse getEmployeeById(EmployeeRequest request);
-    EmployeeResponse getAllEmployee(EmployeeRequest request);
+    EmployeeResponse getEmployeeById(String  request);
+    List<EmployeeResponse> getAllEmployee(); // parameter diisi jika menggunakan seaching
     EmployeeResponse updateEmployee(EmployeeRequest request);
-    EmployeeResponse deleteEmployee(EmployeeRequest request);
+    EmployeeResponse deleteEmployee(String id);
 
 }

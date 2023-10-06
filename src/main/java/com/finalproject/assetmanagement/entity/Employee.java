@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder(toBuilder = true)
 @Table(name = "employees")
 public class Employee {
     @Id
@@ -34,4 +35,6 @@ public class Employee {
     @ManyToOne
     @Column(name = "asset_id")
     private Asset assetId;
+
+
 }

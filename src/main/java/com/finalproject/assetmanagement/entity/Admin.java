@@ -9,9 +9,9 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Data
-@Builder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder(toBuilder = true)
 @Table(name = "Admins")
 public class Admin {
     @Id

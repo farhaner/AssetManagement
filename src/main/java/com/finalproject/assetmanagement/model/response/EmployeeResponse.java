@@ -19,4 +19,9 @@ public class EmployeeResponse {
     private String email;
 
     private String mobilePhone;
+
+    private AssetResponse asset;
+
+    private BranchResponse branch;
+
 }

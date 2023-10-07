@@ -62,17 +62,17 @@ public class EmployeeController {
     }
 
 
-//    @PutMapping
-//    public ResponseEntity<?> updateEmployee(@RequestBody EmployeeRequest employee) {
-//        EmployeeResponse employeeResponse = employeeService.updateEmployee(employee);
-//        return ResponseEntity
-//                .status(HttpStatus.OK)
-//                .body(CommonResponse.<EmployeeResponse>builder()
-//                        .statusCode(HttpStatus.OK.value())
-//                        .message("Successfully update employee")
-//                        .data(employeeResponse)
-//                        .build());
-//    }
+    @PutMapping
+    public ResponseEntity<?> updateEmployee(@RequestBody EmployeeRequest employee) {
+        EmployeeResponse employeeResponse = employeeService.updateEmployee(employee);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(CommonResponse.<EmployeeResponse>builder()
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Successfully update employee")
+                        .data(employeeResponse)
+                        .build());
+    }
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> deleteEmployee(@PathVariable String id) {

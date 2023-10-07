@@ -9,6 +9,8 @@ import com.finalproject.assetmanagement.model.response.AssetResponse;
 import com.finalproject.assetmanagement.model.response.BranchResponse;
 import com.finalproject.assetmanagement.repository.AssetRepository;
 import com.finalproject.assetmanagement.repository.BranchRepository;
+import com.finalproject.assetmanagement.repository.EmployeeRepository;
+import com.finalproject.assetmanagement.repository.TransactionRepository;
 import com.finalproject.assetmanagement.service.AssetService;
 import com.finalproject.assetmanagement.service.BranchService;
 import lombok.RequiredArgsConstructor;
@@ -25,9 +27,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AssetServiceImplementation implements AssetService {
 
-    private final AssetRepository assetRepository;
-    private final BranchService branchService;
     private final BranchRepository branchRepository;
+    private final AssetRepository assetRepository;
 
     //CRUD tanpa relasi
 

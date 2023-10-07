@@ -5,7 +5,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.util.List;
 
 @Entity
 @Setter
@@ -34,4 +33,9 @@ public class Employee {
 
     @Column(name = "mobilePhone" , nullable = false)
     private String mobilePhone;
+
+    @ManyToOne
+    @JoinColumn(name = "transaction_id", referencedColumnName = "id")
+    private Transaction transaction;
+
 }

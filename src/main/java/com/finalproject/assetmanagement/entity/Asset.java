@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Setter
@@ -31,6 +32,6 @@ public class Asset {
     private String description;
 
     @ManyToOne
-    @Column(name = "branch_id")
-    private Branch branchId;
+    @JoinColumn(name = "branch_id", referencedColumnName = "id")
+    private Branch branch;
 }

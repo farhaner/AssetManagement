@@ -20,8 +20,4 @@ public class EmployeeResponse {
 
     private String mobilePhone;
 
-    private AssetResponse asset;
-
-    private BranchResponse branch;
-
 }

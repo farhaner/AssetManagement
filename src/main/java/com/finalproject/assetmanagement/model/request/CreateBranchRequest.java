@@ -7,13 +7,14 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class AdminRequest {
+public class CreateBranchRequest {
+    private String id;
 
-    private String username;
+    private String branchCode;
 
-    private String password;
+    private String branchName;
 
-    private String email;
+    private String address;
 
     private String mobilePhone;
 

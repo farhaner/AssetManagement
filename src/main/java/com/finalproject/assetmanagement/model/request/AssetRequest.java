@@ -9,6 +9,8 @@ import lombok.*;
 @Builder(toBuilder = true)
 public class AssetRequest {
 
+    private String id;
+
     private String assetCode;
 
     private String name;
@@ -16,5 +18,6 @@ public class AssetRequest {
     private String description;
 
     private String branchId;
+
 
 }

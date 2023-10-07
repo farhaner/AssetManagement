@@ -2,22 +2,19 @@ package com.finalproject.assetmanagement.model.request;
 
 import lombok.*;
 
-import javax.persistence.Column;
-
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class EmployeeRequest {
-
+public class UpdateBranchRequest {
     private String id;
 
-    private String username;
+    private String branchCode;
 
-    private String password;
+    private String branchName;
 
-    private String email;
+    private String address;
 
     private String mobilePhone;
 }

@@ -19,36 +19,6 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
-    // Tanpa relasi
-
-    @PostMapping
-    public Employee create(@RequestBody Employee employee){
-        return employeeService.create(employee);
-    }
-
-    @GetMapping(value = "/{id}")
-    public Employee getById(@PathVariable String id){
-        return employeeService.getById(id);
-    }
-
-    @GetMapping
-    public List<Employee> getAll(){
-        return employeeService.getAll();
-    }
-
-    @PutMapping
-    public Employee update(@RequestBody Employee employee){
-        return employeeService.update(employee);
-    }
-
-    @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable String id){
-        employeeService.deleteById(id);
-    }
-
-    // Dengan relasi
-    // note : URL method relasi dan tanpa relasi masih sama, harus diubah
-
     @PostMapping
     public ResponseEntity<?> createNewEmployee(@RequestBody EmployeeRequest employee) {
         EmployeeResponse employeeResponse = employeeService.createNewEmployee(employee);
@@ -63,50 +33,56 @@ public class EmployeeController {
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<?> getEmployeeById(@PathVariable String id) {
-        EmployeeResponse employeeResponse = employeeService.getEmployeeById(id);
+        Employee employee = employeeService.getEmployeeById(id);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(CommonResponse.<EmployeeResponse>builder()
                         .statusCode(HttpStatus.OK.value())
-                        .message("Successfully get customer by id")
-                        .data(employeeResponse)
+                        .message("Successfully get employee by id")
+                        .data(EmployeeResponse.builder()
+                                .id(employee.getId())
+                                .username(employee.getUsername())
+                                .email(employee.getEmail())
+                                .password(employee.getPassword())
+                                .mobilePhone(employee.getMobilePhone())
+                                .build())
                         .build());
     }
 
     @GetMapping
     public ResponseEntity<?> getAllEmployee() {
-        List<EmployeeResponse> employeeResponse = employeeService.getAllEmployee();
+        List<EmployeeResponse> employees = employeeService.getAllEmployee();
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(CommonResponse.builder()
                         .statusCode(HttpStatus.OK.value())
-                        .message("Successfully get all customer")
-                        .data(employeeResponse)
+                        .message("Successfully get all employee")
+                        .data(employees)
                         .build());
     }
 
 
-    @PutMapping
-    public ResponseEntity<?> updateEmployee(@RequestBody EmployeeRequest employee) {
-        EmployeeResponse employeeResponse = employeeService.updateEmployee(employee);
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(CommonResponse.<EmployeeResponse>builder()
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Successfully update customer")
-                        .data(employeeResponse)
-                        .build());
-    }
+//    @PutMapping
+//    public ResponseEntity<?> updateEmployee(@RequestBody EmployeeRequest employee) {
+//        EmployeeResponse employeeResponse = employeeService.updateEmployee(employee);
+//        return ResponseEntity
+//                .status(HttpStatus.OK)
+//                .body(CommonResponse.<EmployeeResponse>builder()
+//                        .statusCode(HttpStatus.OK.value())
+//                        .message("Successfully update employee")
+//                        .data(employeeResponse)
+//                        .build());
+//    }
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> deleteEmployee(@PathVariable String id) {
-        employeeService.deleteEmployee(id);
+        employeeService.deleteEmployeeById(id);
         Employee employee = new Employee();
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .body(CommonResponse.<String>builder()
                         .statusCode(HttpStatus.NO_CONTENT.value())
-                        .message("Successfully delete customer")
+                        .message("Successfully delete employee")
                         .data(String.valueOf(employee))
                         .build());
     }

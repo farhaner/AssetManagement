@@ -1,8 +1,14 @@
 package com.finalproject.assetmanagement.controller;
 
 import com.finalproject.assetmanagement.entity.Branch;
+import com.finalproject.assetmanagement.model.request.CreateBranchRequest;
+import com.finalproject.assetmanagement.model.request.UpdateBranchRequest;
+import com.finalproject.assetmanagement.model.response.BranchResponse;
+import com.finalproject.assetmanagement.model.response.CommonResponse;
 import com.finalproject.assetmanagement.service.BranchService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,27 +21,55 @@ public class BranchController {
     private final BranchService branchService;
 
     @PostMapping
-    public Branch createNewBranch(@RequestBody Branch branch){
-        return branchService.createBranch(branch);
+    public ResponseEntity<?> createNewBranch(@RequestBody CreateBranchRequest request){
+        BranchResponse branch = branchService.createBranch(request);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(CommonResponse.builder()
+                        .data(branch)
+                        .message("branch created")
+                        .statusCode(HttpStatus.CREATED.value())
+                        .build());
     }
 
     @GetMapping(value = "/{id}")
-    public Branch getBranchById(@PathVariable String id){
-        return branchService.getBranchById(id);
+    public ResponseEntity<?> getBranchById(@PathVariable String id){
+        BranchResponse branch = branchService.getBranchById(id);
+        return ResponseEntity.ok(CommonResponse.builder()
+                        .data(branch)
+                        .message("ok")
+                        .statusCode(HttpStatus.OK.value())
+                        .build());
     }
 
     @GetMapping
-    public List<Branch> getAllBranch(){
-        return branchService.getAllBranch();
+    public ResponseEntity<?> getAllBranch(){
+        List<BranchResponse> branches = branchService.getAllBranch();
+        CommonResponse<?> response = CommonResponse.builder()
+                .message("ok")
+                .data(branches)
+                .statusCode(HttpStatus.OK.value())
+                .build();
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping
-    public Branch updateBranch(@RequestBody Branch branch){
-        return branchService.updateBranch(branch);
+    public ResponseEntity<?> updateBranch(@RequestBody UpdateBranchRequest request){
+        BranchResponse branch = branchService.updateBranch(request);
+        return ResponseEntity.ok(CommonResponse.builder()
+                        .data(branch)
+                        .message("branch updated")
+                        .statusCode(HttpStatus.OK.value())
+                        .build());
     }
 
     @DeleteMapping(value = "/{id}")
-    public void deleteBranch(@PathVariable String id){
+    public ResponseEntity<?> deleteBranch(@PathVariable String id){
         branchService.deleteBranchById(id);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(CommonResponse.builder()
+                        .data("OK")
+                        .message("branch deleted")
+                        .statusCode(HttpStatus.OK.value())
+                        .build());
     }
 }

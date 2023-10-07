@@ -20,5 +20,6 @@ public class BranchRequest {
 
     private String mobilePhone;
 
+    private String assetId;
 
 }

@@ -2,22 +2,19 @@ package com.finalproject.assetmanagement.model.request;
 
 import lombok.*;
 
-import javax.persistence.Column;
-
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class EmployeeRequest {
-
+public class CreateAssetRequest {
     private String id;
 
-    private String username;
+    private String branchId;
 
-    private String password;
+    private String assetCode;
 
-    private String email;
+    private String name;
 
-    private String mobilePhone;
+    private String description;
 }

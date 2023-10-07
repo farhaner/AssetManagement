@@ -4,6 +4,8 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import java.util.List;
 
 @Entity
 @Setter
@@ -26,15 +28,10 @@ public class Employee {
     @Column(name = "password" , nullable = false)
     private String password;
 
+    @Email
     @Column(name = "email" , nullable = false)
     private String email;
 
     @Column(name = "mobilePhone" , nullable = false)
     private String mobilePhone;
-
-    @ManyToOne
-    @Column(name = "asset_id")
-    private Asset assetId;
-
-
 }

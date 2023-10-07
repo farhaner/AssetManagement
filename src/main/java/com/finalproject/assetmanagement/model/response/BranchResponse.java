@@ -9,7 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class BranchResponse {
-
     private String id;
     private String branchCode;
     private String branchName;

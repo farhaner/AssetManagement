@@ -1,116 +1,83 @@
 package com.finalproject.assetmanagement.service.implementation;
 
-import com.finalproject.assetmanagement.entity.Asset;
-import com.finalproject.assetmanagement.entity.Branch;
 import com.finalproject.assetmanagement.entity.Employee;
 import com.finalproject.assetmanagement.model.request.EmployeeRequest;
-import com.finalproject.assetmanagement.model.response.AssetResponse;
-import com.finalproject.assetmanagement.model.response.BranchResponse;
 import com.finalproject.assetmanagement.model.response.EmployeeResponse;
 import com.finalproject.assetmanagement.repository.EmployeeRepository;
-import com.finalproject.assetmanagement.service.AssetService;
-import com.finalproject.assetmanagement.service.BranchService;
 import com.finalproject.assetmanagement.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class EmployeeServiceImplementation implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
-    private final BranchService branchService;
-    private final AssetService assetService;
-
     // CRUD tanpa relasi
-    @Override
-    public Employee create(Employee employee) {
-        return employeeRepository.save(employee);
-    }
 
-    @Override
-    public Employee getById(String id) {
-        return employeeRepository.findById(id).get();
-    }
-
-    @Override
-    public List<Employee> getAll() {
-        return employeeRepository.findAll();
-    }
-
-    @Override
-    public Employee update(Employee employee) {
-        Employee currentEmployee = getById(employee.getId());
-        if (currentEmployee != null) {
-            return employeeRepository.save(employee);
-        }
-        return null;
-    }
-
-    @Override
-    public void deleteById(String id) {
-        employeeRepository.deleteById(id);
-    }
-
-    // CRUD dengan relasi
-
+    @Transactional(rollbackOn = Exception.class)
     @Override
     public EmployeeResponse createNewEmployee(EmployeeRequest request) {
-        Branch branch = branchService.getBranchById(request.getBranchId());
-        Asset asset = assetService.getById(request.getAssetId());
-
         Employee employee = Employee.builder()
+                .id(request.getId())
                 .username(request.getUsername())
                 .password(request.getPassword())
                 .email(request.getEmail())
                 .mobilePhone(request.getMobilePhone())
-                .assetId(asset)
                 .build();
-        employeeRepository.saveAndFlush(employee);
+        employeeRepository.save(employee);
 
-        return employeeResponse(employee, branch, asset);
+        return employeeResponse(employee);
     }
-
     @Override
-    public EmployeeResponse getEmployeeById(String id) {
-        return null;
+    public Employee getEmployeeById(String id) {
+        return employeeRepository.findById(id).get();
     }
 
     @Override
     public List<EmployeeResponse> getAllEmployee() {
-        return null;
+        List<Employee> employees = employeeRepository.findAll();
+        List<EmployeeResponse> employeeResponses = employees.stream()
+                .map(employee -> employeeResponse(employee)).collect(Collectors.toList());
+        return employeeResponses;
     }
 
     @Override
     public EmployeeResponse updateEmployee(EmployeeRequest request) {
+        Employee employee = getEmployeeById(request.getId());
+        if (Objects.nonNull(employee)){
+            employee.setId(request.getId());
+            employee.setEmail(request.getEmail());
+            employee.setUsername(request.getUsername());
+            employee.setPassword(request.getPassword());
+            employee.setMobilePhone(request.getMobilePhone());
+            employeeRepository.save(employee);
+
+            return employeeResponse(employee);
+        }
         return null;
     }
 
+
     @Override
-    public EmployeeResponse deleteEmployee(String request) {
-        return null;
+    public void deleteEmployeeById(String id) {
+        employeeRepository.deleteById(id);
     }
-    private static EmployeeResponse employeeResponse(Employee employee, Branch branch, Asset asset) {
+
+    private static EmployeeResponse employeeResponse(Employee employee) {
         return EmployeeResponse.builder()
                 .id(employee.getId())
                 .username(employee.getUsername())
                 .password(employee.getPassword())
                 .email(employee.getEmail())
                 .mobilePhone(employee.getMobilePhone())
-                .asset(AssetResponse.builder()
-                    .id(asset.getId())
-                    .assetCode(asset.getAssetCode())
-                    .name(asset.getName())
-                    .description(asset.getDescription())
-                    .branch(BranchResponse.builder()
-                            .id(branch.getId())
-                            .branchName(branch.getBranchName())
-                            .mobilePhone(branch.getMobilePhone())
-                            .address(branch.getAddress())
-                            .build())
-                    .build())
                 .build();
     }
 }

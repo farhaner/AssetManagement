@@ -15,7 +15,7 @@ public class TransactionResponse {
     private LocalDateTime inboundItem;
 
     private LocalDateTime outboundItem;
-    private Integer quantity;
+    private Long quantity;
 
     private EmployeeResponse employees;
     private AssetResponse assets;

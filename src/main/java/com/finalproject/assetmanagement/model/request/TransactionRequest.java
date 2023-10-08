@@ -16,7 +16,7 @@ public class TransactionRequest {
     private LocalDateTime inboundItem;
 
     private LocalDateTime outboundItem;
-    private Integer quantity;
+    private Long quantity;
     private String employeeId;
 
     private String assetId;

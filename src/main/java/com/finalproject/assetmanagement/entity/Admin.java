@@ -4,7 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import javax.validation.constraints.Email;
 import java.util.List;
 
 @Entity
@@ -14,8 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-@Table(name = "transactions")
-public class Transaction {
+@Table(name = "admins")
+public class Admin {
 
     @Id
     @GeneratedValue(generator = "uuid-hibernate-generator")
@@ -23,19 +23,17 @@ public class Transaction {
     @Column(name = "id", columnDefinition = "varchar(36)")
     private String id;
 
-    @Column(name = "inbound_item" , nullable = false)
-    private LocalDateTime inboundItem;
+    @Column(name = "username" , nullable = false)
+    private String username;
 
-    @Column(name = "outbound_item" , nullable = false)
-    private LocalDateTime outboundItem;
+    @Column(name = "password" , nullable = false)
+    private String password;
 
-    @Column(name = "quantity" , nullable = false)
-    private Long quantity;
+    @Email
+    @Column(name = "email" , nullable = false)
+    private String email;
 
-    @OneToMany(mappedBy = "transaction")
-    private List<Asset> assets;
-
-    @OneToMany(mappedBy = "transaction")
-    private List<Employee> employees;
+    @Column(name = "mobilePhone" , nullable = false)
+    private String mobilePhone;
 
 }

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,18 +30,33 @@ public class TransactionServiceImplementation implements TransactionService {
 
     @Override
     public TransactionResponse createNewTransaction(TransactionRequest request) {
-        Employee employee = employeeRepository.findById(request.getEmployeeId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "branch not found"));
-        Asset asset = assetRepository.findById(request.getAssetId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "branch not found"));
-        Transaction transaction = Transaction.builder()
-                .id(request.getId())
-//                .inboundItem(LocalDateTime.now())
-//                .outboundItem(LocalDateTime.now())
-//                .quantity()
-                .build();
+//        Employee employee = employeeRepository.findById(request.getEmployeeId())
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found"));
+//        Asset asset = assetRepository.findById(request.getAssetId())
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Asset not found"));
+//
+//        long requestedQuantity = request.getQuantity();
+//        long availableQuantity = asset.getTransaction().getQuantity();
+//        if (requestedQuantity > availableQuantity) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Requested quantity exceeds available quantity");
+//        }
+//        LocalDateTime currentTime = LocalDateTime.now();
+//        LocalDateTime returnTime = currentTime.plusDays(request.getOutboundItem());
+//
+//
+//        Transaction transaction = Transaction.builder()
+//                .inboundItem(currentTime) // Tanggal keluarnya barang dipinjam
+//                .outboundItem(returnTime) // Tanggal batas pengembalian barang
+//                .quantity(requestedQuantity) // Jumlah barang
+//                .build();
+//
+//        transactionRepository.save(transaction);
+//
+//            transaction.setQuantity(availableQuantity - requestedQuantity);
+//            transactionRepository.save(transaction);
 
-        transactionRepository.save(transaction);
-
-        return transactionResponse(transaction, employee, asset);
+//            return transactionResponse(transaction, employee, asset);
+        return null;
     }
 
     @Override
@@ -62,6 +78,7 @@ public class TransactionServiceImplementation implements TransactionService {
     public void deleteTransactionById(String id) {
 
     }
+
     private static TransactionResponse transactionResponse(Transaction transaction, Employee employee, Asset asset) {
         return TransactionResponse.builder()
                 .id(transaction.getId())

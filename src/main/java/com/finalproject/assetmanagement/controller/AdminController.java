@@ -83,11 +83,10 @@ public class AdminController {
         adminService.deleteAdminById(id);
         Admin admin = new Admin();
         return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
+                .status(HttpStatus.OK)
                 .body(CommonResponse.<String>builder()
-                        .statusCode(HttpStatus.NO_CONTENT.value())
+                        .statusCode(HttpStatus.OK.value())
                         .message("Successfully delete admin")
-                        .data(String.valueOf(admin))
                         .build());
     }
 }

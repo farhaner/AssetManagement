@@ -79,9 +79,9 @@ public class EmployeeController {
         employeeService.deleteEmployeeById(id);
         Employee employee = new Employee();
         return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
+                .status(HttpStatus.OK)
                 .body(CommonResponse.<String>builder()
-                        .statusCode(HttpStatus.NO_CONTENT.value())
+                        .statusCode(HttpStatus.OK.value())
                         .message("Successfully delete employee")
                         .data(String.valueOf(employee))
                         .build());

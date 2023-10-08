@@ -32,6 +32,9 @@ public class Transaction {
     @Column(name = "quantity" , nullable = false)
     private Long quantity;
 
+    @Column(name = "status" , nullable = false)
+    private String status;
+
     @OneToMany(mappedBy = "transaction")
     private List<Asset> assets;
 

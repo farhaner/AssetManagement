@@ -29,8 +29,8 @@ public class Transaction {
     @Column(name = "outbound_item" , nullable = false)
     private LocalDateTime outboundItem;
 
-    @Column(name = "quantity" , nullable = false)
-    private Long quantity;
+    @Column(name = "current_quantity" , nullable = false)
+    private Long currentQuantity;
 
     @Column(name = "status" , nullable = false)
     private String status;

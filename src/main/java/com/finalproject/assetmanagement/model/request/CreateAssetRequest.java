@@ -17,4 +17,7 @@ public class CreateAssetRequest {
     private String name;
 
     private String description;
+
+    private String quantity;
+
 }

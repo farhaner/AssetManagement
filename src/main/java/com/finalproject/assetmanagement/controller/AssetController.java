@@ -21,7 +21,6 @@ import java.util.List;
 public class AssetController {
 
     private final AssetService  assetService;
-    //Tanpa Relasi
     @PostMapping
     public ResponseEntity<?> createNewAsset(@RequestBody CreateAssetRequest request){
         AssetResponse assetResponse = assetService.createNewAsset(request);

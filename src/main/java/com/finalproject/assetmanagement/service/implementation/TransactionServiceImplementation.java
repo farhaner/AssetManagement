@@ -38,7 +38,7 @@ public class TransactionServiceImplementation implements TransactionService {
         Transaction transaction = Transaction.builder()
                 .inboundItem(LocalDateTime.now())
                 .outboundItem(null)
-                .quantity(request.getQuantity())
+                .currentQuantity(request.getCurrentQuantity())
                 .build();
 
         transaction.setAssets(Collections.singletonList(asset));
@@ -74,7 +74,7 @@ public class TransactionServiceImplementation implements TransactionService {
                 .id(transaction.getId())
                 .inboundItem(transaction.getInboundItem())
                 .outboundItem(transaction.getOutboundItem())
-                .quantity(transaction.getQuantity())
+                .currentQuantity(transaction.getCurrentQuantity())
                 .employees(EmployeeResponse.builder()
                         .username(employee.getUsername())
                         .build())

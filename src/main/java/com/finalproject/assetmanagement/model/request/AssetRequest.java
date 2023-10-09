@@ -17,6 +17,9 @@ public class AssetRequest {
 
     private String description;
 
+    private String quantity;
+
+
     private String branchId;
 
 

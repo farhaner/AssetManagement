@@ -17,6 +17,8 @@ public class AssetResponse {
 
     private String name;
 
+    private String quantity;
+
     private String description;
 
     private BranchResponse branch;

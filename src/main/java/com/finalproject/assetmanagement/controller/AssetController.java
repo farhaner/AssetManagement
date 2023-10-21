@@ -1,13 +1,10 @@
 package com.finalproject.assetmanagement.controller;
 
-import com.finalproject.assetmanagement.entity.Asset;
-import com.finalproject.assetmanagement.entity.Branch;
 import com.finalproject.assetmanagement.model.request.CreateAssetRequest;
 import com.finalproject.assetmanagement.model.request.UpdateAssetRequest;
 import com.finalproject.assetmanagement.model.response.AssetResponse;
 import com.finalproject.assetmanagement.model.response.CommonResponse;
 import com.finalproject.assetmanagement.service.AssetService;
-import com.finalproject.assetmanagement.service.BranchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +25,7 @@ public class AssetController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(CommonResponse.builder()
                         .data(assetResponse)
-                        .message("assert created")
+                        .message("asset created")
                         .statusCode(HttpStatus.CREATED.value())
                         .build());
     }

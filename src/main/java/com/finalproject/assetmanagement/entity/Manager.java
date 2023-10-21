@@ -5,7 +5,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.util.List;
 
 @Entity
 @Setter
@@ -15,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 @Table(name = "admins")
-public class Admin {
+public class Manager {
 
     @Id
     @GeneratedValue(generator = "uuid-hibernate-generator")

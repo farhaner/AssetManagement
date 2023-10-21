@@ -14,5 +14,7 @@ public class UpdateAssetRequest {
 
     private String name;
 
+    private Long quantity;
+
     private String description;
 }

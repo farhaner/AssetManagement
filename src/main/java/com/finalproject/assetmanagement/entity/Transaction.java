@@ -24,16 +24,19 @@ public class Transaction {
     private String id;
 
     @Column(name = "inbound_item" , nullable = false)
-    private LocalDateTime inboundItem;
+    private String inboundItem;
 
     @Column(name = "outbound_item" , nullable = false)
-    private LocalDateTime outboundItem;
+    private String outboundItem;
 
-    @Column(name = "quantity" , nullable = false)
-    private Long quantity;
+    @Column(name = "loan_amount" , nullable = false)
+    private Long loanAmount;
 
     @Column(name = "status" , nullable = false)
     private String status;
+
+    @Column(name = "current_quantity" , nullable = false)
+    private Long currentQuantity;
 
     @OneToMany(mappedBy = "transaction")
     private List<Asset> assets;

@@ -19,6 +19,8 @@ public class AssetResponse {
 
     private String description;
 
+    private Long quantity;
+
     private BranchResponse branch;
 
 }

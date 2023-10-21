@@ -16,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,10 +34,18 @@ public class TransactionServiceImplementation implements TransactionService {
         Asset asset = assetRepository.findById(request.getAssetId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Asset not found"));
 
+        long requestLoanAmount = request.getLoanAmount();
+        if (requestLoanAmount <= 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Current quantity must be greater than 0");
+        }
+        if (asset.getQuantity() < requestLoanAmount) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not enough quantity of the asset available");
+        }
+
         Transaction transaction = Transaction.builder()
-                .inboundItem(LocalDateTime.now())
-                .outboundItem(null)
-                .quantity(request.getQuantity())
+                .inboundItem(request.getInboundItem())
+                .outboundItem(request.getOutboundItem())
+                .loanAmount(request.getLoanAmount())
                 .build();
 
         transaction.setAssets(Collections.singletonList(asset));
@@ -74,7 +81,8 @@ public class TransactionServiceImplementation implements TransactionService {
                 .id(transaction.getId())
                 .inboundItem(transaction.getInboundItem())
                 .outboundItem(transaction.getOutboundItem())
-                .quantity(transaction.getQuantity())
+                .loanAmount(transaction.getLoanAmount())
+                .status("Waiting Approvement")
                 .employees(EmployeeResponse.builder()
                         .username(employee.getUsername())
                         .build())

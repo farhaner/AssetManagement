@@ -1,13 +1,14 @@
-package com.finalproject.assetmanagement.model.request;
+package com.finalproject.assetmanagement.model.response;
 
 import lombok.*;
 
 @Setter
 @Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class AdminRequest {
+public class ManagerRequest {
 
     private String id;
 
@@ -18,4 +19,5 @@ public class AdminRequest {
     private String email;
 
     private String mobilePhone;
+
 }

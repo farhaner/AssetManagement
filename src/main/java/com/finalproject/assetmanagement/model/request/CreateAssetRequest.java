@@ -8,7 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class CreateAssetRequest {
-    private String id;
 
     private String branchId;
 
@@ -17,4 +16,6 @@ public class CreateAssetRequest {
     private String name;
 
     private String description;
+
+    private Long quantity;
 }

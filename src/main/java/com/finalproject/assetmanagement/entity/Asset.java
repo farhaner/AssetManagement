@@ -31,6 +31,9 @@ public class Asset {
     @Column(name = "description" , nullable = false)
     private String description;
 
+    @Column(name = "quantity" , nullable = false)
+    private Long quantity;
+
     @ManyToOne
     @JoinColumn(name = "branch_id", referencedColumnName = "id")
     private Branch branch;

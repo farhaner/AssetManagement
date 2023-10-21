@@ -1,14 +1,9 @@
 package com.finalproject.assetmanagement.controller;
 
-import com.finalproject.assetmanagement.entity.Admin;
-import com.finalproject.assetmanagement.entity.Employee;
-import com.finalproject.assetmanagement.model.request.AdminRequest;
-import com.finalproject.assetmanagement.model.request.EmployeeRequest;
-import com.finalproject.assetmanagement.model.response.AdminResponse;
+import com.finalproject.assetmanagement.entity.Manager;
+import com.finalproject.assetmanagement.model.response.ManagerRequest;
 import com.finalproject.assetmanagement.model.response.CommonResponse;
-import com.finalproject.assetmanagement.model.response.EmployeeResponse;
-import com.finalproject.assetmanagement.service.AdminService;
-import com.finalproject.assetmanagement.service.EmployeeService;
+import com.finalproject.assetmanagement.service.ManagerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,44 +13,44 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/admin")
-public class AdminController {
+@RequestMapping(path = "/manager")
+public class ManagerController {
 
-    private final AdminService adminService;
+    private final ManagerService managerService;
 
     @PostMapping
-    public ResponseEntity<?> createNewAdmin(@RequestBody AdminRequest request) {
-        AdminResponse adminResponse = adminService.createNewAdmin(request);
+    public ResponseEntity<?> createNewAdmin(@RequestBody com.finalproject.assetmanagement.model.request.ManagerRequest request) {
+        ManagerRequest managerRequest = managerService.createNewAdmin(request);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(CommonResponse.<AdminResponse>builder()
+                .body(CommonResponse.<ManagerRequest>builder()
                         .statusCode(HttpStatus.CREATED.value())
                         .message("Successfully create new admin")
-                        .data(adminResponse)
+                        .data(managerRequest)
                         .build());
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<?> getAdminById(@PathVariable String id) {
-        Admin admin = adminService.getAdminById(id);
+        Manager manager = managerService.getAdminById(id);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(CommonResponse.<AdminResponse>builder()
+                .body(CommonResponse.<ManagerRequest>builder()
                         .statusCode(HttpStatus.OK.value())
                         .message("Successfully get admin by id")
-                        .data(AdminResponse.builder()
-                                .id(admin.getId())
-                                .username(admin.getUsername())
-                                .email(admin.getEmail())
-                                .password(admin.getPassword())
-                                .mobilePhone(admin.getMobilePhone())
+                        .data(ManagerRequest.builder()
+                                .id(manager.getId())
+                                .username(manager.getUsername())
+                                .email(manager.getEmail())
+                                .password(manager.getPassword())
+                                .mobilePhone(manager.getMobilePhone())
                                 .build())
                         .build());
     }
 
     @GetMapping
     public ResponseEntity<?> getAllEmployee() {
-        List<AdminResponse> admins = adminService.getAllAdmin();
+        List<ManagerRequest> admins = managerService.getAllAdmin();
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(CommonResponse.builder()
@@ -67,21 +62,21 @@ public class AdminController {
 
 
     @PutMapping
-    public ResponseEntity<?> updateAdmin(@RequestBody AdminRequest request) {
-        AdminResponse adminResponse = adminService.updateAdmin(request);
+    public ResponseEntity<?> updateAdmin(@RequestBody com.finalproject.assetmanagement.model.request.ManagerRequest request) {
+        ManagerRequest managerRequest = managerService.updateAdmin(request);
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(CommonResponse.<AdminResponse>builder()
+                .body(CommonResponse.<ManagerRequest>builder()
                         .statusCode(HttpStatus.OK.value())
                         .message("Successfully update admin")
-                        .data(adminResponse)
+                        .data(managerRequest)
                         .build());
     }
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<?> deleteAdmin(@PathVariable String id) {
-        adminService.deleteAdminById(id);
-        Admin admin = new Admin();
+        managerService.deleteAdminById(id);
+        Manager manager = new Manager();
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(CommonResponse.<String>builder()

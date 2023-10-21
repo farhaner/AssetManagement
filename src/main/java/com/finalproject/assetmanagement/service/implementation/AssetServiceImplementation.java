@@ -26,18 +26,17 @@ public class AssetServiceImplementation implements AssetService {
     private final BranchRepository branchRepository;
     private final AssetRepository assetRepository;
 
-    //CRUD tanpa relasi
-
     @Transactional(rollbackOn = Exception.class)
     @Override
     public AssetResponse createNewAsset(CreateAssetRequest request) {
         Branch branch = branchRepository.findById(request.getBranchId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "branch not found"));
         Asset asset = Asset.builder()
-                .id(request.getId())
+//                .id(request.getId())
                 .name(request.getName())
                 .assetCode(request.getAssetCode())
                 .description(request.getDescription())
+                .quantity(request.getQuantity())
                 .branch(branch)
                 .build();
         assetRepository.save(asset);
@@ -70,6 +69,7 @@ public class AssetServiceImplementation implements AssetService {
            asset.setName(request.getName());
            asset.setAssetCode(request.getAssetCode());
            asset.setDescription(request.getDescription());
+           asset.setQuantity(request.getQuantity());
            assetRepository.save(asset);
            return assetResponse(asset.getBranch(), asset);
        }
@@ -88,6 +88,7 @@ public class AssetServiceImplementation implements AssetService {
                 .assetCode(asset.getAssetCode())
                 .name(asset.getName())
                 .description(asset.getDescription())
+                .quantity(asset.getQuantity())
                 .branch(BranchResponse.builder()
                         .id(branch.getId())
                         .branchCode(branch.getBranchCode())

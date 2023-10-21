@@ -13,10 +13,12 @@ import java.time.LocalDateTime;
 public class TransactionRequest {
     private String id;
 
-    private LocalDateTime inboundItem;
+    private String inboundItem;
 
-    private LocalDateTime outboundItem;
-    private Long quantity;
+    private String outboundItem;
+
+    private Long loanAmount;
+
     private String employeeId;
 
     private String assetId;
